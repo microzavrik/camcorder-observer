@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Qt">
+      <UniqueIdentifier>{b150b6c7-51c9-4c8d-818d-183168550690}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tg-Bot">
+      <UniqueIdentifier>{23803d54-937a-4554-b85b-7518548d71ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OpenCV">
+      <UniqueIdentifier>{9adb0659-a9d0-4fcb-82dc-37b50f3c938b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{fb806d30-62de-4b01-abdd-ceb91ac57ece}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{442b6b15-3bd7-4ddb-a4fa-28b2cb454482}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="camcorderobserver.ui">
+      <Filter>Qt</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="camcorderobserver.qrc">
+      <Filter>Qt</Filter>
+    </QtRcc>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="windows_console.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="TelegramBot.cpp">
+      <Filter>Tg-Bot</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="TelegramBotConfigurator.cpp">
+      <Filter>Qt</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="windows_console.hpp">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="TelegramBot.hpp">
+      <Filter>Tg-Bot</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="TelegramBotConfigurator.hpp">
+      <Filter>Qt</Filter>
+    </QtMoc>
+  </ItemGroup>
+</Project>
