@@ -2,6 +2,8 @@
 
 #include <libconfig.h++>
 
+#include "windows_console.hpp"
+
 namespace tg_bot
 {
 	TelegramBot::TelegramBot(const std::string& token) : bot(token)
@@ -31,23 +33,37 @@ namespace tg_bot
 
 	void TelegramBot::Start()
 	{
+		Console c;
 		try
 		{
-			printf("Bot username: %s\n", bot.getApi().getMe()->username.c_str());
-			bot.getApi().deleteWebhook();
-
-			TgBot::TgLongPoll longPoll(bot);
-
-			while (true)
+			while (!BotRunValue::run)
 			{
-				printf("Long poll started\n");
-				longPoll.start();
+				std::this_thread::sleep_for(std::chrono::seconds(1));
+				std::cout << "Wait On" << std::endl;
+			}
+
+			std::cout << "Exit wait loop" << std::endl;
+
+			while (BotRunValue::run)
+			{
+				printf("Bot username: %s\n", bot.getApi().getMe()->username.c_str());
+				bot.getApi().deleteWebhook();
+
+				TgBot::TgLongPoll longPoll(bot);
+
+				while (true)
+				{
+					printf("Long poll started\n");
+					longPoll.start();
+				}
 			}
 		}
 		catch (TgBot::TgException& ex)
 		{
 			printf("Error: %s\n", ex.what());
 		}
+
+		Start();
 	}
 
 	void TelegramBot::PingUsersWithPhoto(const std::string& photoFilePath)

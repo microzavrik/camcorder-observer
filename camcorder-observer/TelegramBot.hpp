@@ -5,6 +5,9 @@
 #include <vector>
 #include <string>
 
+#include "GetBotToken.hpp"
+#include "BotRunValue.hpp"
+
 namespace tg_bot
 {
 	class TelegramBot
@@ -14,11 +17,11 @@ namespace tg_bot
 		void Start();
 		void PingUsersWithPhoto(const std::string& photoFilePath);
 		void addUserId(const std::string& userId);
+		void loadConfigFromFile(const std::string& configFile);
 	private:
 		TgBot::Bot bot;
 		std::vector<std::string> userIds;
 
-		void loadConfigFromFile(const std::string& configFile);
 		void handleStartCommand(TgBot::Message::Ptr message);
 		void handleConfigCommand(TgBot::Message::Ptr message);
 		void handlePingHistoryCommand(TgBot::Message::Ptr message);

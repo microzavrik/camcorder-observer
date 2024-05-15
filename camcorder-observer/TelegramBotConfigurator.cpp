@@ -1,5 +1,10 @@
 #include "TelegramBotConfigurator.hpp"
 
+#include "GetBotToken.hpp"
+#include "windows_console.hpp"
+
+#define CFG_FILE_NAME "telegram_bot_config.cfg"
+
 TelegramBotConfigurator::TelegramBotConfigurator(QWidget* parent) : QWidget(parent)
 {
     setWindowTitle("Telegram Bot Configurator");
@@ -55,7 +60,7 @@ void TelegramBotConfigurator::saveConfiguration()
 
     try
     {
-        cfg.writeFile("telegram_bot_config.cfg");
+        cfg.writeFile(CFG_FILE_NAME);
     }
     catch (const libconfig::FileIOException& ex)
     {
@@ -65,13 +70,26 @@ void TelegramBotConfigurator::saveConfiguration()
 
 void TelegramBotConfigurator::startBot()
 {
-    statusLabel->setText("Bot Status: On");
-    statusLabel->setStyleSheet("color: green; font-weight: bold; text-shadow: 0 0 10px green;");
+    std::string telegramToken = config_tool::getTelegramToken(CFG_FILE_NAME);
 
+    if (!telegramToken.empty())
+    {
+        BotRunValue::run = true;
+
+        statusLabel->setText("Bot Status: On");
+        statusLabel->setStyleSheet("color: green; font-weight: bold; text-shadow: 0 0 10px green;");
+    }
+    else
+    {
+        statusLabel->setText("Error: Bot Token not found");
+        statusLabel->setStyleSheet("color: red; font-weight: bold; text-shadow: 0 0 10px red;");
+    }
 }
 
 void TelegramBotConfigurator::stopBot()
 {
+    BotRunValue::run = false;
+
     statusLabel->setText("Bot Status: Off");
     statusLabel->setStyleSheet("color: red; font-weight: bold; text-shadow: 0 0 10px red;");
 }

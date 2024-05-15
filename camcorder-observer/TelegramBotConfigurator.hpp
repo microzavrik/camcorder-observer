@@ -9,13 +9,16 @@
 #include <QLabel>
 #include <QFile>
 #include <QTextStream>
+
+#include <thread>
+#include <memory>
+
 #include <libconfig.h++>
 
-#include "TelegramBot.hpp"
+#include "BotRunValue.hpp"
 
 class TelegramBotConfigurator : public QWidget
 {
-	Q_OBJECT
 public:
 	TelegramBotConfigurator(QWidget* parent = nullptr);
 public slots:
