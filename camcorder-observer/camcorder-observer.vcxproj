@@ -96,6 +96,9 @@
     <QtUic Include="camcorderobserver.ui" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BotRunValue.cpp" />
+    <ClCompile Include="FaceObserver.cpp" />
+    <ClCompile Include="GetBotToken.cpp" />
     <ClCompile Include="main.cpp">
       <DynamicSource Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">input</DynamicSource>
       <QtMocFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).moc</QtMocFileName>
@@ -107,8 +110,11 @@
     <ClCompile Include="windows_console.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BotRunValue.hpp" />
+    <ClInclude Include="FaceObserver.hpp" />
+    <ClInclude Include="GetBotToken.hpp" />
     <ClInclude Include="TelegramBot.hpp" />
-    <QtMoc Include="TelegramBotConfigurator.hpp" />
+    <ClInclude Include="TelegramBotConfigurator.hpp" />
     <ClInclude Include="windows_console.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

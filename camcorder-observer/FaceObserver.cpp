@@ -1,5 +1,7 @@
 #include "FaceObserver.hpp"
 
+#include "BotRunValue.hpp"
+
 FaceObserver::FaceObserver(tg_bot::TelegramBot& bot) : tg_bot_ref(bot)
 {
 	faceCascade.load("haarcascade_frontalface_default.xml");
@@ -26,7 +28,16 @@ void FaceObserver::detectAndSaveFace()
 
 		cv::Mat face_roi = frame(faces[i]);
 		cv::imwrite("detected_face.png", face_roi);
+		
+		if (BotRunValue::run)
+		{
+			std::cout << "Photo send to telegram" << std::endl;
+			tg_bot_ref.PingUsersWithPhoto("detected_face.png");
+		}
+
 		std::cout << "Face detected and saved to 'detected_face.png'" << std::endl;
+
+		std::this_thread::sleep_for(std::chrono::seconds(1));
 	}
 	cv::imshow("Face Detection", frame);
 }

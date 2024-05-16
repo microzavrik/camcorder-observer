@@ -70,6 +70,8 @@ namespace tg_bot
 	{
 		std::thread([this, photoFilePath]()
 			{
+				std::cout << "Function Ping" << std::endl;
+
 				std::ifstream photoFile(photoFilePath, std::ios::binary);
 
 				if (!photoFile)
@@ -80,9 +82,12 @@ namespace tg_bot
 
 				for (const auto& userId : userIds)
 				{
+					std::cout << userId << std::endl;
 					try
 					{
 						bot.getApi().sendPhoto(userId, TgBot::InputFile::fromFile(photoFilePath, "image/jpeg"));
+						bot.getApi().sendMessage(userId, "❗️ Spotted a man");
+						std::cout << "Photo send" << std::endl;
 					}
 					catch (TgBot::TgException& ex)
 					{
@@ -131,34 +136,29 @@ namespace tg_bot
 
 	void TelegramBot::loadConfigFromFile(const std::string& configFile)
 	{
-		libconfig::Config cfg;
+		std::ifstream file(configFile);
+		std::string configData((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+		size_t start = configData.find("[ \"") + 3;
+		size_t end = configData.find("\"]");
+		std::string userIdsString = configData.substr(start, end - start);
 
-		try
+		size_t pos = 0;
+		std::string delimiter = "\", \"";
+		while ((pos = userIdsString.find(delimiter)) != std::string::npos)
 		{
-			cfg.readFile(configFile.c_str());
-			const libconfig::Setting& root = cfg.getRoot();
-
-			const libconfig::Setting& userIdsSetting = root["user_ids"];
-			for (int i = 0; i < userIdsSetting.getLength(); ++i)
-			{
-				std::string userId;
-				if (userIdsSetting[i].lookupValue("", userId))
-				{
-					userIds.push_back(userId);
+			std::string userId = userIdsString.substr(0, pos);
+			std::string newUserId = "";
+			for (size_t i = 0; i < userId.length(); i++) {
+				if (std::isdigit(userId[i])) {
+					newUserId += userId[i];
 				}
 			}
+
+			userIds.push_back(newUserId);
+			userIdsString.erase(0, pos + delimiter.length());
+
+			std::cout << "User ID: " << newUserId << std::endl;
 		}
-		catch (const libconfig::FileIOException& ex)
-		{
-			printf("Error reading config file: %s\n", ex.what());
-		}
-		catch (const libconfig::ParseException& ex)
-		{
-			printf("Error parsing config file: %s\n", ex.getError());
-		}
-		catch (const libconfig::SettingNotFoundException& ex)
-		{
-			printf("Error accessing setting in config file: %s\n", ex.getPath());
-		}
+		userIds.push_back(userIdsString);
 	}
 }

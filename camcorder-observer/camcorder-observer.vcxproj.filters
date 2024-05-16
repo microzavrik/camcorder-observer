@@ -16,6 +16,12 @@
     <Filter Include="Utils">
       <UniqueIdentifier>{442b6b15-3bd7-4ddb-a4fa-28b2cb454482}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ConfigTool">
+      <UniqueIdentifier>{0b972af9-d167-4a4c-8ef4-64e485ccbba1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Observer">
+      <UniqueIdentifier>{e0b7a5dd-61ab-4c23-a1ed-6fa560c5c4db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="camcorderobserver.ui">
@@ -40,6 +46,15 @@
     <ClCompile Include="TelegramBotConfigurator.cpp">
       <Filter>Qt</Filter>
     </ClCompile>
+    <ClCompile Include="GetBotToken.cpp">
+      <Filter>ConfigTool</Filter>
+    </ClCompile>
+    <ClCompile Include="BotRunValue.cpp">
+      <Filter>Observer</Filter>
+    </ClCompile>
+    <ClCompile Include="FaceObserver.cpp">
+      <Filter>OpenCV</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="windows_console.hpp">
@@ -48,10 +63,17 @@
     <ClInclude Include="TelegramBot.hpp">
       <Filter>Tg-Bot</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <QtMoc Include="TelegramBotConfigurator.hpp">
+    <ClInclude Include="GetBotToken.hpp">
+      <Filter>ConfigTool</Filter>
+    </ClInclude>
+    <ClInclude Include="TelegramBotConfigurator.hpp">
       <Filter>Qt</Filter>
-    </QtMoc>
+    </ClInclude>
+    <ClInclude Include="BotRunValue.hpp">
+      <Filter>Observer</Filter>
+    </ClInclude>
+    <ClInclude Include="FaceObserver.hpp">
+      <Filter>OpenCV</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
